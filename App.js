@@ -17,26 +17,32 @@ export default function App() {
 
     for (let index = 0; index < splitNumbers.length; index++) {
       const value = splitNumbers[index];
+      var valueNumber = parseInt(value);
+      
       if (isNumber) {
-        if (!Number.isNaN(value)) {
+        if (!Number.isNaN(valueNumber)) {
           if (index > 0) {
             // Faz ação referente tecla pressionada
             switch(operator){
               case '+':   
-                resultNumber = resultNumber + parseInt(value);
+                resultNumber = resultNumber + valueNumber;
                 break
               case '-': 
-                resultNumber = resultNumber - parseInt(value);
+                resultNumber = resultNumber - valueNumber;
                 break
               case 'x':
-                resultNumber = resultNumber + parseInt(value);
+                resultNumber = resultNumber + valueNumber;
                 break
               case '/': 
-                resultNumber = resultNumber - parseInt(value);
+                resultNumber = resultNumber - valueNumber;
+                break
+              case '%': 
+                const firstResult = resultNumber * valueNumber;
+                resultNumber = firstResult / 100;
                 break
             }
           } else {
-            resultNumber = parseInt(value);
+            resultNumber = valueNumber;
           }
         }
 
@@ -46,13 +52,19 @@ export default function App() {
         isNumber = true;
       }
     }
+
+    const lastValue = parseInt(splitNumbers[splitNumbers.length - 1]);
+
+    if (Number.isNaN(lastValue) && operator == '%') {
+      resultNumber = resultNumber / 100;
+    }
     
     setCurrentNumber(resultNumber.toString());
   }
 
   function handleInput(buttonPressed){
     console.log(buttonPressed) // Mostra no Console a tecla pressionada
-    if(buttonPressed === '+' | buttonPressed === "-" | buttonPressed === "x" | buttonPressed === "/" ){
+    if(buttonPressed === '+' | buttonPressed === "-" | buttonPressed === "x" | buttonPressed === "/" | buttonPressed === "%" ){
       setCurrentNumber(currentNumber + " " + buttonPressed + " ")
       return
     }
