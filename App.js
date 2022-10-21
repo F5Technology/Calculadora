@@ -69,7 +69,16 @@ export default function App() {
     if(buttonPressed === '+' | buttonPressed === "-" | buttonPressed === "x" | buttonPressed === "/" | buttonPressed === "%" ){
       setCurrentNumber(currentNumber + " " + buttonPressed + " ")
       return
+    } else if (buttonPressed === '.') {
+      var lastCharacter = currentNumber.substring(currentNumber.length - 1);
+
+      console.log("O ultimo caracter é " + lastCharacter);
+
+      if (lastCharacter === '.') {
+        return;
+      }
     }
+
     switch(buttonPressed){
       case 'DEL':
         if (lastNumber.length > 0 && splitNumbers.length < 2) {
