@@ -34,7 +34,7 @@ export default function App() {
                 resultNumber = resultNumber + valueNumber;
                 break
               case '/': 
-                resultNumber = resultNumber - valueNumber;
+                resultNumber = resultNumber / parseInt(value);
                 break
               case '%': 
                 const firstResult = resultNumber * valueNumber;
