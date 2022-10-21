@@ -1,6 +1,6 @@
 import React from 'react';
-import {useState} from 'react'
-import { StyleSheet, Text, View, TouchableOpacity, Button } from 'react-native';
+import {useState} from 'react';
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 
 export default function App() {
   // Mapeamento de teclas
@@ -31,10 +31,10 @@ export default function App() {
                 resultNumber = resultNumber - valueNumber;
                 break
               case 'x':
-                resultNumber = resultNumber * parseInt(value);
+                resultNumber = resultNumber * valueNumber;
                 break
               case '/': 
-                resultNumber = resultNumber / parseInt(value);
+                resultNumber = resultNumber / valueNumber;
                 break
               case '%': 
                 const firstResult = resultNumber * valueNumber;
@@ -64,26 +64,17 @@ export default function App() {
 
   function handleInput(buttonPressed){  
     const splitNumbers = currentNumber.split(' ');
+    const lastCharacter = currentNumber.length > 0 ? currentNumber.substring(currentNumber.length - 1) : "";
 
     console.log(buttonPressed) // Mostra no Console a tecla pressionada
     if(buttonPressed === '+' | buttonPressed === "-" | buttonPressed === "x" | buttonPressed === "/" | buttonPressed === "%" ){
-      if (currentNumber.length > 0) {
-        var lastCharacter = currentNumber.substring(currentNumber.length - 1);
-
-        if (lastCharacter != " ") {        
-          setCurrentNumber(currentNumber + " " + buttonPressed + " ")
-        }
+      if (lastCharacter != " " && lastCharacter != "") {        
+        setCurrentNumber(currentNumber + " " + buttonPressed + " ")
       }
 
-      return
-    } else if (buttonPressed === '.') {
-      var lastCharacter = currentNumber.substring(currentNumber.length - 1);
-
-      console.log("O ultimo caracter é " + lastCharacter);
-
-      if (lastCharacter === '.') {
-        return;
-      }
+      return;
+    } else if (buttonPressed === '.' && lastCharacter === '.') {
+      return;
     }
 
     switch(buttonPressed){
@@ -93,11 +84,11 @@ export default function App() {
           setCurrentNumber("") 
         } else {
           var charactersRemove = 1;
-          const lastCharacter = splitNumbers[splitNumbers.length - 1];
+          const lastValue = splitNumbers[splitNumbers.length - 1];
   
-          if(lastCharacter === '+' | lastCharacter === "-" | lastCharacter === "x" | lastCharacter === "/" ){
+          if(lastValue === '+' | lastValue === "-" | lastValue === "x" | lastValue === "/" ){
             charactersRemove = 2;
-          } else if (lastCharacter.length == 0) {          
+          } else if (lastValue.length == 0) {          
             charactersRemove = 3;
           }
   
@@ -115,7 +106,7 @@ export default function App() {
       case '+/-':
         if (currentNumber.length > 0) {
           const splitNumbers = currentNumber.split(' ');
-          var lastValue = parseInt(splitNumbers[splitNumbers.length - 1]);
+          const lastValue = parseInt(splitNumbers[splitNumbers.length - 1]);
           
           if (!Number.isNaN(lastValue)) {
             var newCurrentNumber = "";
