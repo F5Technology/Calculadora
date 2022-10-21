@@ -50,7 +50,9 @@ export default function App() {
     setCurrentNumber(resultNumber.toString());
   }
 
-  function handleInput(buttonPressed){
+  function handleInput(buttonPressed){  
+    const splitNumbers = currentNumber.split(' ');
+
     console.log(buttonPressed) // Mostra no Console a tecla pressionada
     if(buttonPressed === '+' | buttonPressed === "-" | buttonPressed === "x" | buttonPressed === "/" ){
       setCurrentNumber(currentNumber + " " + buttonPressed + " ")
@@ -58,7 +60,21 @@ export default function App() {
     }
     switch(buttonPressed){
       case 'DEL':
-        setCurrentNumber(currentNumber.substring(0, (currentNumber.length - 2)))
+        if (lastNumber.length > 0 && splitNumbers.length < 2) {
+          setLastNumber("") 
+          setCurrentNumber("") 
+        } else {
+          var charactersRemove = 1;
+          const lastCharacter = splitNumbers[splitNumbers.length - 1];
+  
+          if(lastCharacter === '+' | lastCharacter === "-" | lastCharacter === "x" | lastCharacter === "/" ){
+            charactersRemove = 2;
+          } else if (lastCharacter.length == 0) {          
+            charactersRemove = 3;
+          }
+  
+          setCurrentNumber(currentNumber.substring(0, (currentNumber.length - charactersRemove)))
+        }
         return
       case 'LIMPAR': // Limpa todo o conteúdo
         setLastNumber("") 
@@ -72,7 +88,12 @@ export default function App() {
         return
     }
 
-    setCurrentNumber(currentNumber + buttonPressed)
+    if (lastNumber.length > 0 && splitNumbers.length < 2) {
+      setLastNumber("");
+      setCurrentNumber(buttonPressed.toString()); 
+    } else {
+      setCurrentNumber(currentNumber + buttonPressed);
+    }
   }
 
 
