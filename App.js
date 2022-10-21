@@ -65,7 +65,14 @@ export default function App() {
   function handleInput(buttonPressed){
     console.log(buttonPressed) // Mostra no Console a tecla pressionada
     if(buttonPressed === '+' | buttonPressed === "-" | buttonPressed === "x" | buttonPressed === "/" | buttonPressed === "%" ){
-      setCurrentNumber(currentNumber + " " + buttonPressed + " ")
+      if (currentNumber.length > 0) {
+        var lastCharacter = currentNumber.substring(currentNumber.length - 1);
+
+        if (lastCharacter != " ") {        
+          setCurrentNumber(currentNumber + " " + buttonPressed + " ")
+        }
+      }
+
       return
     }
     switch(buttonPressed){
