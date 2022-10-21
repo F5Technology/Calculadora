@@ -31,7 +31,7 @@ export default function App() {
                 resultNumber = resultNumber - valueNumber;
                 break
               case 'x':
-                resultNumber = resultNumber + valueNumber;
+                resultNumber = resultNumber * parseInt(value);
                 break
               case '/': 
                 resultNumber = resultNumber / parseInt(value);
