@@ -113,6 +113,29 @@ export default function App() {
         calculator()
         return
       case '+/-':
+        if (currentNumber.length > 0) {
+          const splitNumbers = currentNumber.split(' ');
+          var lastValue = parseInt(splitNumbers[splitNumbers.length - 1]);
+          
+          if (!Number.isNaN(lastValue)) {
+            var newCurrentNumber = "";
+
+            if (lastValue > 0) {
+              splitNumbers[splitNumbers.length - 1] = "-" + lastValue;
+            } else {
+              var stringValue = lastValue.toString();
+              
+              splitNumbers[splitNumbers.length - 1] = stringValue.substring(1);
+            }
+
+            splitNumbers.forEach(value => {
+              newCurrentNumber += value + " ";
+            });
+
+            newCurrentNumber = newCurrentNumber.slice(0, -1);
+            setCurrentNumber(newCurrentNumber)
+          }
+        }
         return
     }
 
