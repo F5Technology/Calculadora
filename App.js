@@ -9,28 +9,45 @@ export default function App() {
   const [currentNumber, setCurrentNumber] = useState("")
   const [lastNumber, setLastNumber] = useState("")
 
-
   function calculator(){
-    const splitNumbers = currentNumber.split(' ')
-    const fistNumber = parseFloat(splitNumbers[0])
-    const lastNumber = parseFloat(splitNumbers[2])
-    const operator = splitNumbers[1]
+    var operator = "+";
+    var isNumber = true;
+    var resultNumber = 0;
+    const splitNumbers = currentNumber.split(' ');
 
-    // Faz ação referente tecla pressionada
-    switch(operator){
-      case '+':
-        setCurrentNumber((fistNumber + lastNumber).toString())
-        return
-      case '-': 
-        setCurrentNumber((fistNumber - lastNumber).toString())
-        return
-      case 'x':
-        setCurrentNumber((fistNumber + lastNumber).toString())
-        return
-      case '/': 
-        setCurrentNumber((fistNumber - lastNumber).toString())
-        return
+    for (let index = 0; index < splitNumbers.length; index++) {
+      const value = splitNumbers[index];
+      if (isNumber) {
+        if (!Number.isNaN(value)) {
+          if (index > 0) {
+            // Faz ação referente tecla pressionada
+            switch(operator){
+              case '+':   
+                resultNumber = resultNumber + parseInt(value);
+                break
+              case '-': 
+                resultNumber = resultNumber - parseInt(value);
+                break
+              case 'x':
+                resultNumber = resultNumber + parseInt(value);
+                break
+              case '/': 
+                resultNumber = resultNumber - parseInt(value);
+                break
+            }
+          } else {
+            resultNumber = parseInt(value);
+          }
+        }
+
+        isNumber = false;
+      } else {
+        operator = value;
+        isNumber = true;
+      }
     }
+    
+    setCurrentNumber(resultNumber.toString());
   }
 
   function handleInput(buttonPressed){
